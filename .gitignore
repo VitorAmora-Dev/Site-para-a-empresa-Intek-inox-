@@ -1,0 +1,10 @@
+# Zips de deploy
+*.zip
+
+# Pasta interna do Claude
+.claude/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
