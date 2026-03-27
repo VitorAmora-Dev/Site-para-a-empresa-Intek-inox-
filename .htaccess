@@ -1,0 +1,53 @@
+# ─── Compressão Gzip ───────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ─── Cache do Navegador ────────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/html                 "access plus 1 day"
+    ExpiresByType text/css                  "access plus 1 month"
+    ExpiresByType application/javascript    "access plus 1 month"
+    ExpiresByType image/png                 "access plus 6 months"
+    ExpiresByType image/jpg                 "access plus 6 months"
+    ExpiresByType image/jpeg                "access plus 6 months"
+    ExpiresByType image/webp                "access plus 6 months"
+    ExpiresByType image/svg+xml             "access plus 6 months"
+    ExpiresByType image/x-icon              "access plus 1 year"
+</IfModule>
+
+# ─── Headers de Segurança ──────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Remove versão do servidor
+    Header unset Server
+    Header unset X-Powered-By
+</IfModule>
+
+# ─── Bloquear acesso a arquivos sensíveis ─────────────────────────────────────
+<FilesMatch "\.(git|env|htpasswd|log|sql|zip)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ─── Página 404 personalizada ─────────────────────────────────────────────────
+ErrorDocument 404 /index.html
+
+# ─── Forçar HTTPS (ativar após certificado SSL estar ativo no Hostinger) ───────
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ─── www para sem-www (opcional — ajuste ao seu domínio) ──────────────────────
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTP_HOST} ^www\.intekinox\.com\.br [NC]
+#     RewriteRule ^(.*)$ https://intekinox.com.br/$1 [L,R=301]
+# </IfModule>

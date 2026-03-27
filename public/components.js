@@ -73,20 +73,46 @@ function loadFooter() {
 }
 
 /**
- * Injeta o botão flutuante de WhatsApp para contato rápido.
- * Canal de conversão primário para o público B2B brasileiro.
+ * Injeta o botão flutuante de WhatsApp.
+ * Exibe aviso enquanto o canal ainda não está disponível.
  */
 function loadWhatsAppButton() {
-    const whatsappNumber = '5551983533020';
-    const whatsappMessage = encodeURIComponent('Olá! Gostaria de solicitar uma cotação de produtos INTEK.');
-
-    const button = document.createElement('a');
-    button.href = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-    button.target = '_blank';
-    button.rel = 'noopener noreferrer';
+    const button = document.createElement('button');
+    button.type = 'button';
     button.className = 'whatsapp-float-btn';
     button.setAttribute('aria-label', 'Falar com consultor pelo WhatsApp');
     button.innerHTML = '<i class="fab fa-whatsapp" aria-hidden="true"></i>';
+    button.addEventListener('click', showWhatsAppUnavailable);
 
     document.body.appendChild(button);
+
+    // Intercepta também os botões de WhatsApp declarados no HTML
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href*="wa.me"]');
+        if (link) {
+            e.preventDefault();
+            showWhatsAppUnavailable();
+        }
+    });
+}
+
+function showWhatsAppUnavailable() {
+    const existing = document.getElementById('wpp-unavailable-toast');
+    if (existing) return;
+
+    const toast = document.createElement('div');
+    toast.id = 'wpp-unavailable-toast';
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        <span>Atendimento via WhatsApp ainda não disponível.<br>Entre em contato pelo e-mail: <strong>contato@intekinox.com.br</strong></span>
+    `;
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => toast.classList.add('visible'));
+
+    setTimeout(() => {
+        toast.classList.remove('visible');
+        setTimeout(() => toast.remove(), 400);
+    }, 5000);
 }

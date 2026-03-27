@@ -977,109 +977,125 @@ body[data-theme="dark"] .stat-item i {
 
 .locations-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 28px;
     margin-top: 40px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .location-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--card-border);
     display: flex;
     flex-direction: column;
     text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .location-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    border-color: var(--primary-color);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent-color);
 }
 
 .loc-image-wrapper {
     width: 100%;
-    height: 150px;
+    height: 220px;
     position: relative;
+    overflow: hidden;
+}
+
+.loc-image-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(10, 16, 30, 0.75), transparent);
+    pointer-events: none;
 }
 
 .loc-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s ease;
 }
 
 .location-card:hover .loc-image-wrapper img {
-    transform: scale(1.05);
+    transform: scale(1.07);
 }
 
 .loc-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(4px);
+    top: 14px;
+    right: 14px;
+    background: var(--accent-color);
     color: white;
-    padding: 5px 12px;
+    padding: 5px 13px;
     border-radius: 6px;
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.68rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    z-index: 1;
 }
 
 .loc-content {
-    padding: 25px;
+    padding: 28px 28px 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1;
 }
 
 .location-card h3 {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     color: var(--text-color);
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
 }
 
 .loc-details p {
-    margin: 8px 0;
+    margin: 9px 0;
     color: var(--muted-text);
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .loc-details p i {
-    color: var(--primary-color);
-    font-size: 1rem;
-    width: 20px;
+    color: var(--accent-color);
+    font-size: 0.95rem;
+    width: 18px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .loc-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-top: 20px;
+    margin-top: 22px;
     color: var(--accent-color);
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    transition: gap 0.2s ease;
 }
 
 .loc-link:hover {
-    gap: 12px;
+    gap: 13px;
 }
 
 .cta-section {
@@ -1266,6 +1282,10 @@ footer strong {
 
     .section-title {
         font-size: 2.2rem;
+    }
+
+    .contact-section-title {
+        font-size: 2rem;
     }
 
     .products-section,
@@ -1525,17 +1545,30 @@ body[data-theme="dark"] .tech-button:hover {
 }
 
 .contact-section-title {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     font-weight: 900;
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.contact-section-title::after {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+    margin: 14px auto 0;
 }
 
 .contact-section-subtitle {
     font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
+    margin-top: 8px;
 }
 
 /* =========================================
@@ -1639,5 +1672,56 @@ body[data-theme="dark"] .tech-button:hover {
         width: 54px;
         height: 54px;
         font-size: 1.6rem;
+    }
+}
+
+/* =========================================
+   TOAST: WhatsApp Indisponível
+   ========================================= */
+#wpp-unavailable-toast {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    z-index: 9999;
+    background: #1a2638;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 4px solid #25d366;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    max-width: 340px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+#wpp-unavailable-toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#wpp-unavailable-toast .fa-whatsapp {
+    color: #25d366;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+#wpp-unavailable-toast strong {
+    color: #7dd3fc;
+}
+
+@media (max-width: 480px) {
+    #wpp-unavailable-toast {
+        right: 12px;
+        left: 12px;
+        max-width: unset;
+        bottom: 90px;
     }
 }
