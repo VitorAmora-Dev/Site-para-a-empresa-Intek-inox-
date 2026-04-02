@@ -1596,17 +1596,27 @@ body[data-theme="dark"] .tech-button:hover {
     box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
 }
 
-/* CTA Secundário: Email (outline sobre fundo escuro) */
+/* CTA Secundário: outline — adapta ao tema */
 .cta-secondary {
     background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color) !important;
+}
+
+.cta-secondary:hover {
+    background: rgba(32, 50, 74, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="dark"] .cta-secondary {
     border: 2px solid rgba(255, 255, 255, 0.5);
     color: #fff !important;
 }
 
-.cta-secondary:hover {
+body[data-theme="dark"] .cta-secondary:hover {
     background: rgba(255, 255, 255, 0.12);
     border-color: #fff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 480px) {
